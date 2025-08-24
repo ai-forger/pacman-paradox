@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacman Paradox - Retro Time Loop Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="gameContainer">
+        <!-- Start Screen -->
+        <div id="startScreen" class="screen">
+            <h1 class="gameTitle">PACMAN PARADOX</h1>
+            <div class="subtitle">TIME LOOP CHALLENGE</div>
+            <div class="startPrompt">PRESS START</div>
+            <div class="highScore">HIGH SCORE: <span id="highScore">0</span></div>
+            <div class="controls">
+                <div class="controlGroup">
+                    <h3>PC Controls:</h3>
+                    <p>Arrow Keys to Move</p>
+                </div>
+                <div class="controlGroup">
+                    <h3>Mobile Controls:</h3>
+                    <p>Swipe to Move</p>
+                </div>
+            </div>
+            <button id="startButton" class="retroButton">START GAME</button>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="gameScreen" class="screen hidden">
+            <div id="gameHeader">
+                <div id="score">SCORE: 0</div>
+                <div id="time">TIME: 0s</div>
+                <div id="clones">CLONES: 0</div>
+                <div id="highScoreGame">HIGH: 0</div>
+            </div>
+            <canvas id="gameCanvas" width="560" height="620"></canvas>
+            <div id="gameControls">
+                <button id="pauseButton" class="retroButton">PAUSE</button>
+                <button id="restartButton" class="retroButton">RESTART</button>
+            </div>
+        </div>
+
+        <!-- Game Over Screen -->
+        <div id="gameOverScreen" class="screen hidden">
+            <h2 class="gameOverTitle">TIME PARADOX!</h2>
+            <div class="finalScore">FINAL SCORE: <span id="finalScore">0</span></div>
+            <div class="paradoxMessage">Your past self caught you!</div>
+            <button id="playAgainButton" class="retroButton">PLAY AGAIN</button>
+            <button id="mainMenuButton" class="retroButton">MAIN MENU</button>
+        </div>
+
+        <!-- Pause Screen -->
+        <div id="pauseScreen" class="screen hidden">
+            <h2>GAME PAUSED</h2>
+            <button id="resumeButton" class="retroButton">RESUME</button>
+            <button id="pauseRestartButton" class="retroButton">RESTART</button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+
+</html>

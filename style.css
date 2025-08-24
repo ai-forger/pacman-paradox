@@ -1,0 +1,298 @@
+/* Retro Pixel Art Styling for Pacman Paradox */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Press Start 2P', monospace;
+    background: #000;
+    color: #00ff00;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+#gameContainer {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #000 0%, #1a0033 50%, #000 100%);
+}
+
+/* Screen Management */
+.screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Start Screen */
+.gameTitle {
+    font-size: 3rem;
+    color: #ffff00;
+    text-shadow: 0 0 20px #ffff00, 0 0 40px #ffff00;
+    margin-bottom: 2rem;
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #00ffff;
+    margin-bottom: 3rem;
+    text-shadow: 0 0 15px #00ffff;
+}
+
+.startPrompt {
+    font-size: 1.5rem;
+    color: #ff00ff;
+    margin-bottom: 1rem;
+    animation: blink 1s infinite;
+    text-shadow: 0 0 20px #ff00ff;
+}
+
+.highScore {
+    font-size: 1rem;
+    color: #ffff00;
+    margin-bottom: 3rem;
+    text-shadow: 0 0 15px #ffff00;
+}
+
+.controls {
+    display: flex;
+    gap: 3rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.controlGroup {
+    background: rgba(0, 255, 0, 0.1);
+    border: 2px solid #00ff00;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.controlGroup h3 {
+    color: #00ff00;
+    margin-bottom: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.controlGroup p {
+    color: #00ffff;
+    font-size: 0.6rem;
+}
+
+/* Game Screen */
+#gameHeader {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 560px;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.8);
+    border-bottom: 2px solid #00ff00;
+    margin-bottom: 1rem;
+}
+
+#gameHeader>div {
+    font-size: 0.8rem;
+    color: #00ff00;
+    text-shadow: 0 0 10px #00ff00;
+}
+
+#gameCanvas {
+    border: 3px solid #00ff00;
+    background: #000;
+    box-shadow: 0 0 30px #00ff00;
+    max-width: 100%;
+    height: auto;
+}
+
+#gameControls {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+/* Game Over Screen */
+.gameOverTitle {
+    font-size: 2.5rem;
+    color: #ff0000;
+    text-shadow: 0 0 30px #ff0000;
+    margin-bottom: 2rem;
+    animation: shake 0.5s infinite;
+}
+
+.finalScore {
+    font-size: 1.2rem;
+    color: #ffff00;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 15px #ffff00;
+}
+
+.paradoxMessage {
+    font-size: 1rem;
+    color: #ff00ff;
+    margin-bottom: 3rem;
+    text-shadow: 0 0 15px #ff00ff;
+}
+
+/* Pause Screen */
+#pauseScreen h2 {
+    font-size: 2rem;
+    color: #00ffff;
+    text-shadow: 0 0 20px #00ffff;
+    margin-bottom: 2rem;
+}
+
+/* Buttons */
+.retroButton {
+    font-family: 'Press Start 2P', monospace;
+    font-size: 1rem;
+    padding: 1rem 2rem;
+    background: #000;
+    color: #00ff00;
+    border: 3px solid #00ff00;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 10px #00ff00;
+    box-shadow: 0 0 20px #00ff00;
+    margin: 0.5rem;
+}
+
+.retroButton:hover {
+    background: #00ff00;
+    color: #000;
+    box-shadow: 0 0 30px #00ff00;
+    transform: scale(1.05);
+}
+
+.retroButton:active {
+    transform: scale(0.95);
+}
+
+/* Animations */
+@keyframes glow {
+    from {
+        text-shadow: 0 0 20px #ffff00, 0 0 40px #ffff00;
+    }
+
+    to {
+        text-shadow: 0 0 30px #ffff00, 0 0 60px #ffff00;
+    }
+}
+
+@keyframes blink {
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 0.3;
+    }
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .gameTitle {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 0.9rem;
+    }
+
+    .startPrompt {
+        font-size: 1.2rem;
+    }
+
+    .controls {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .controlGroup {
+        padding: 0.8rem;
+    }
+
+    #gameHeader {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    #gameHeader>div {
+        font-size: 0.7rem;
+    }
+
+    #gameCanvas {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+    }
+
+    .retroButton {
+        font-size: 0.8rem;
+        padding: 0.8rem 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .gameTitle {
+        font-size: 1.5rem;
+    }
+
+    .subtitle {
+        font-size: 0.7rem;
+    }
+
+    .startPrompt {
+        font-size: 1rem;
+    }
+
+    #gameCanvas {
+        max-width: 350px;
+    }
+
+    .retroButton {
+        font-size: 0.7rem;
+        padding: 0.7rem 1.2rem;
+    }
+}
