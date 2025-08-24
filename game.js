@@ -629,8 +629,24 @@ class PacmanParadox {
         const index = this.cloneGhosts.indexOf(clone);
         if (index > -1) {
             this.cloneGhosts.splice(index, 1);
-            this.cloneCount--;
+            this.cloneCount = Math.max(0, this.cloneCount - 1); // Ensure count doesn't go negative
         }
+    }
+
+    // Method to get active clone count
+    getActiveCloneCount() {
+        return this.cloneGhosts.filter(clone =>
+            clone.historyIndex < clone.history.length || clone.history.length > 0
+        ).length;
+    }
+
+    // Debug method to log clone status
+    logCloneStatus() {
+        console.log(`Total clones: ${this.cloneCount}`);
+        console.log(`Active clones: ${this.getActiveCloneCount()}`);
+        this.cloneGhosts.forEach((clone, index) => {
+            console.log(`Clone ${index}: historyIndex=${clone.historyIndex}, historyLength=${clone.history.length}, active=${clone.historyIndex < clone.history.length}`);
+        });
     }
 
     loadHighScore() {
@@ -723,6 +739,9 @@ class PacmanParadox {
         // Update power mode
         this.updatePowerMode();
 
+        // Ensure all clones stay active
+        this.ensureCloneActivity();
+
         // Render
         this.render();
 
@@ -758,6 +777,9 @@ class PacmanParadox {
         // Show spawn message
         this.showSpawnMessage();
 
+        // Debug logging
+        this.logCloneStatus();
+
         const clone = {
             x: 1,
             y: 1,
@@ -767,6 +789,7 @@ class PacmanParadox {
             moveCounter: 0,
             historyIndex: 0,
             history: [...this.movementHistory],
+            id: Date.now() + Math.random(), // Unique identifier for each clone
 
             update() {
                 this.moveCounter += this.speed;
@@ -784,6 +807,9 @@ class PacmanParadox {
                     this.y = move.y;
                     this.direction = move.direction;
                     this.historyIndex++;
+                } else {
+                    // Loop the movement when reaching the end
+                    this.historyIndex = 0;
                 }
             },
 
@@ -836,6 +862,23 @@ class PacmanParadox {
                 this.scheduleNextClone(); // Schedule the next one
             }
         }, (nextSpawnTime - this.gameTime) * 1000);
+    }
+
+    // Improved method to ensure all clones stay active
+    ensureCloneActivity() {
+        this.cloneGhosts.forEach((clone, index) => {
+            // Ensure each clone has proper references
+            if (!clone.walls) {
+                clone.walls = this.walls;
+                clone.mazeWidth = this.mazeWidth;
+                clone.mazeHeight = this.mazeHeight;
+            }
+
+            // Reset any stuck clones
+            if (clone.historyIndex >= clone.history.length) {
+                clone.historyIndex = 0; // Loop the movement
+            }
+        });
     }
 
     showSpawnMessage() {
@@ -1028,7 +1071,8 @@ class PacmanParadox {
             document.getElementById('clones').textContent = `RECORDING: ${timeLeft}s`;
             document.getElementById('clones').style.color = '#00ffff';
         } else {
-            document.getElementById('clones').textContent = `CLONES: ${this.cloneCount}`;
+            const activeClones = this.getActiveCloneCount();
+            document.getElementById('clones').textContent = `CLONES: ${activeClones}`;
             document.getElementById('clones').style.color = '#00ff00';
         }
     }
